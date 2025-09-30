@@ -1,26 +1,27 @@
 package utb.fai;
 
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class EmailSender {
+    private final Socket socket;
+    private final InputStream input;
+    private final OutputStream output;
+
     /*
      * Constructor opens Socket to host/port. If the Socket throws an exception
      * during opening,
      * the exception is not handled in the constructor.
      */
-    private static Socket socket;
-
     public EmailSender(String host, int port) throws UnknownHostException, IOException {
-        try {
-            socket = new Socket(host, port);
-            
-            if (socket.isConnected()) {
-                System.out.println("Connected to server");
-            }
-        } catch (UnknownHostException e) {
-            System.out.println("Host not found");
-        }
+        this.socket = new Socket(host, port);
+        this.input = socket.getInputStream();
+        this.output = socket.getOutputStream();
+
+        System.out.println("Connected to server");
     }
 
     /*
@@ -30,60 +31,57 @@ public class EmailSender {
      * handled by this method.
      */
     public void send(String from, String to, String subject, String text) throws IOException, InterruptedException {
-        byte[] buffer;
-        byte[] response = new byte[1024];
-        String message;
-        int len;
+        // MAIL FROM
+        sendCommand("MAIL FROM:<" + from + ">");
+        readResponse();
 
-        InputStream input = socket.getInputStream();
-        OutputStream output = socket.getOutputStream();
-        
-        message = "MAIL FROM:<" + from + ">\r\n";
-        buffer = message.getBytes();
-        output.write(buffer, 0, buffer.length);
+        // RCPT TO
+        sendCommand("RCPT TO:<" + to + ">");
+        readResponse();
+
+        // DATA
+        sendCommand("DATA");
+        readResponse();
+
+        // Headers + body
+        StringBuilder data = new StringBuilder();
+        data.append("Date: ").append(java.time.ZonedDateTime.now()).append("\r\n");
+        data.append("From: ").append(from).append("\r\n");
+        data.append("To: ").append(to).append("\r\n");
+        data.append("Subject: ").append(subject).append("\r\n");
+        data.append("\r\n");
+        data.append(text).append("\r\n");
+        data.append(".\r\n");
+
+        output.write(data.toString().getBytes());
         output.flush();
-
-        Thread.sleep(500);
-        if (input.available() > 0) {
-            len = input.read(response);
-            System.out.write(response, 0, len);
-        }
-        
-        message = "RCPT TO:<" + to + ">\r\n";
-        buffer = message.getBytes();
-        output.write(buffer, 0, buffer.length);
-        output.flush();
-
-        Thread.sleep(500);
-        if (input.available() > 0) {
-            len = input.read(response);
-            System.out.write(response, 0, len);
-        }
+        readResponse();
     }
 
     /*
      * Sends QUIT and closes the socket
      */
     public void close() throws IOException, InterruptedException {
-        byte[] buffer;
-        byte[] response = new byte[1024];
-        String message;
-        int len;
+        sendCommand("QUIT");
+        readResponse();
 
-        InputStream input = socket.getInputStream();
-        OutputStream output = socket.getOutputStream();
+        socket.close();
+        System.out.println("Socket closed");
+    }
 
-        message = "QUIT\r\n";
-        buffer = message.getBytes();
-        output.write(buffer, 0, buffer.length);
+    private void sendCommand(String command) throws IOException {
+        output.write((command + "\r\n").getBytes());
         output.flush();
+    }
+
+    private void readResponse() throws IOException, InterruptedException {
+        byte[] response = new byte[1024];
+        int len;
 
         Thread.sleep(500);
         if (input.available() > 0) {
             len = input.read(response);
             System.out.write(response, 0, len);
         }
-
-        socket.close();
     }
 }
