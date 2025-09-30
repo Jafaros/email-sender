@@ -1,0 +1,15 @@
+[15:06:23][PluginLoader][INFO] No plugins found.
+[15:06:23][ProcessManager][WARNING] Failed to terminate process PID 7084
+[15:06:24][NATTCore][INFO] NATT CORE initialization done
+Version: 1.7.0 
+Configuration path: test-config.yaml
+Configuration loading mode: FROM HOST
+[15:06:24][NATTCore][INFO] Working directory path: C:\Users\grajc\Documents\GitHub\email-sender
+[15:06:24][NATTCore][INFO] Start loading of the configuration file ...
+[15:06:24][LocalHostIO][INFO] Yaml data has been loaded from file (test-config.yaml)
+[15:06:24][NATTCore][INFO] Configuration loading done
+[15:06:24][NATTCore][INFO] Start building test structure according to the configuration ...
+[15:06:24][NATTCore][INFO] Test structure ...
+[15:06:24][NATTCore][INFO] Test structure building done
+[15:06:24][NATTCore][INFO] Start test executing ...
+[15:06:24][TestReportGenerator][INFO] Extenet reports generated. Final report will be saved to file: test_report.html

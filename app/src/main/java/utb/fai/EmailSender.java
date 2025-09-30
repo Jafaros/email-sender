@@ -31,6 +31,10 @@ public class EmailSender {
      * handled by this method.
      */
     public void send(String from, String to, String subject, String text) throws IOException, InterruptedException {
+        // EHLO
+        sendCommand("EHLO " + from);
+        readResponse();
+
         // MAIL FROM
         sendCommand("MAIL FROM:<" + from + ">");
         readResponse();
@@ -53,9 +57,19 @@ public class EmailSender {
         data.append(text).append("\r\n");
         data.append(".\r\n");
 
-        output.write(data.toString().getBytes());
+        byte[] buffer;
+        buffer = data.toString().getBytes();
+        output.write(buffer, 0, buffer.length);
         output.flush();
-        readResponse();
+
+        final byte[] response = new byte[1024];
+        int len;
+
+        Thread.sleep(500);
+        if (input.available() > 0) {
+            len = input.read(response);
+            System.out.write(response, 0, len);
+        }
     }
 
     /*
@@ -69,13 +83,26 @@ public class EmailSender {
         System.out.println("Socket closed");
     }
 
-    private void sendCommand(String command) throws IOException {
-        output.write((command + "\r\n").getBytes());
+    // Sending command on the server
+    private void sendCommand(String command) throws IOException, InterruptedException {
+        byte[] buffer;
+        buffer = (command + "\r\n").getBytes();
+        output.write(buffer, 0, buffer.length);
         output.flush();
+
+        final byte[] response = new byte[1024];
+        int len;
+
+        Thread.sleep(500);
+        if (input.available() > 0) {
+            len = input.read(response);
+            System.out.write(response, 0, len);
+        }
     }
 
+    // Reading the response from the server
     private void readResponse() throws IOException, InterruptedException {
-        byte[] response = new byte[1024];
+        final byte[] response = new byte[1024];
         int len;
 
         Thread.sleep(500);

@@ -1,0 +1,29 @@
+[14:33:18][PluginLoader][INFO] No plugins found.
+[14:33:18][NATTCore][INFO] NATT CORE initialization done
+Version: 1.7.0 
+Configuration path: https://gitlab.com/ap5vs/test-config/email-sender-config/-/raw/main/test-config-1.yaml?ref_type=heads
+Configuration loading mode: FROM URL
+[14:33:18][NATTCore][INFO] Working directory path: C:\Users\grajc\Documents\GitHub\email-sender
+[14:33:18][NATTCore][INFO] Start loading of the configuration file ...
+[14:33:19][NetworkIO][INFO] Yaml data has been loaded from network location (https://gitlab.com/ap5vs/test-config/email-sender-config/-/raw/main/test-config-1.yaml?ref_type=heads)
+[14:33:19][NATTCore][INFO] Configuration loading done
+[14:33:19][NATTCore][INFO] Start building test structure according to the configuration ...
+[14:33:19][NATTCore][INFO] Test structure ...
+[14:33:19][NATTCore][INFO] Test structure building done
+[14:33:19][NATTCore][INFO] Start test executing ...
+[14:33:19][TestReportGenerator][INFO] Extenet reports generated. Final report will be saved to file: test_report.html
+[14:33:19][NATTCore][INFO] Starts execution on the root keyword  ...
+[14:33:19][MessageBuffer][INFO] Message buffer created for module with name: server-1
+[14:33:19][SMTPEmailServer][INFO] (server-1) SMTP Email Server is listening on port: 9999
+[14:33:19][TestSuiteKw][INFO] Test case 'Test odeslání emailu' starts executing now
+[14:33:19][MessageBuffer][INFO] Message buffer created for module with name: default
+[14:33:19][ExternalProgramRunner][INFO] (default) Run external app with command: java -jar app/build/libs/app.jar localhost 9999 sender@email.com recipient@email.com Subject1 'Text Message'
+[14:33:19][ProcessManager][INFO] New PID (30244) added to file
+[14:33:19][WaitUntilKw][INFO] Waiting for action. Actions count: 1, Time out: 5000 ms
+[14:33:19][MessageBuffer][INFO] Message added to buffer [ Mod: default | Tag:  ] Content: 'Connected to server'
+[14:33:19][MessageBuffer][INFO] Message added to buffer [ Mod: default | Tag:  ] Content: '220 **************************************'
+[14:33:19][MessageBuffer][INFO] Message added to buffer [ Mod: default | Tag:  ] Content: '250 2.1.0 Ok'
+[14:33:20][MessageBuffer][INFO] Message added to buffer [ Mod: default | Tag:  ] Content: '250 2.1.5 Ok'
+[14:33:20][MessageBuffer][INFO] Message added to buffer [ Mod: default | Tag:  ] Content: '221 2.0.0 Bye'
+[14:33:20][ProcessManager][INFO] PID (30244) removed from file
+[14:33:20][ExternalProgramRunner][INFO] (default) External application ends with exit code 0

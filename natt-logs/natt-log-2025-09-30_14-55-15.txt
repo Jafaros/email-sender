@@ -1,0 +1,37 @@
+[14:55:15][PluginLoader][INFO] No plugins found.
+[14:55:15][ProcessManager][WARNING] Failed to terminate process PID 7084
+[14:55:15][NATTCore][INFO] NATT CORE initialization done
+Version: 1.7.0 
+Configuration path: https://gitlab.com/ap5vs/test-config/email-sender-config/-/raw/main/test-config-1.yaml?ref_type=heads
+Configuration loading mode: FROM URL
+[14:55:15][NATTCore][INFO] Working directory path: C:\Users\grajc\Documents\GitHub\email-sender
+[14:55:15][NATTCore][INFO] Start loading of the configuration file ...
+[14:55:15][NetworkIO][INFO] Yaml data has been loaded from network location (https://gitlab.com/ap5vs/test-config/email-sender-config/-/raw/main/test-config-1.yaml?ref_type=heads)
+[14:55:15][NATTCore][INFO] Configuration loading done
+[14:55:15][NATTCore][INFO] Start building test structure according to the configuration ...
+[14:55:15][NATTCore][INFO] Test structure ...
+[14:55:15][NATTCore][INFO] Test structure building done
+[14:55:15][NATTCore][INFO] Start test executing ...
+[14:55:15][TestReportGenerator][INFO] Extenet reports generated. Final report will be saved to file: test_report.html
+[14:55:15][NATTCore][INFO] Starts execution on the root keyword  ...
+[14:55:15][MessageBuffer][INFO] Message buffer created for module with name: server-1
+[14:55:15][SMTPEmailServer][INFO] (server-1) SMTP Email Server is listening on port: 9999
+[14:55:15][TestSuiteKw][INFO] Test case 'Test odeslání emailu' starts executing now
+[14:55:15][MessageBuffer][INFO] Message buffer created for module with name: default
+[14:55:15][ExternalProgramRunner][INFO] (default) Run external app with command: java -jar app/build/libs/app.jar localhost 9999 sender@email.com recipient@email.com Subject1 'Text Message'
+[14:55:15][ProcessManager][INFO] New PID (28584) added to file
+[14:55:15][WaitUntilKw][INFO] Waiting for action. Actions count: 1, Time out: 5000 ms
+[14:55:20][WaitUntilKw][WARNING] Timeout.. Action was not invoked!
+[14:55:20][NATTContext][INFO] Data has been stored in to the variable 'var-1'. Data value: 0
+[14:55:20][AssertEqualsKw][WARNING] Assertion failed. True was expected as the result. Condition: (Expected value '1,000000' must be same as the value of the variable '0')
+[14:55:20][WaitKw][INFO] Waiting: 500 ms
+[14:55:21][TestSuiteKw][ERROR] Test suite 'Zakladní test odesílání Emailů' - Test case 'Test odeslání emailu' failed
+[14:55:21][MessageBuffer][INFO] Message buffer cleared
+[14:55:21][ExternalProgramRunner][INFO] (default) Termiting external application
+[14:55:21][ProcessManager][INFO] PID (28584) removed from file
+[14:55:21][ProcessManager][INFO] PID (28584) removed from file
+[14:55:21][ExternalProgramRunner][WARNING] (default) External application ends with error: 1
+[14:55:22][TestSuiteKw][INFO] Test case 'Test obsahu emailu 1' starts executing now
+[14:55:22][ExternalProgramRunner][INFO] (default) Run external app with command: java -jar app/build/libs/app.jar localhost 9999 sender@email.com recipient@email.com Subject1 'Text Message'
+[14:55:22][ProcessManager][INFO] New PID (26920) added to file
+[14:55:22][WaitUntilKw][INFO] Waiting for action. Actions count: 1, Time out: 5000 ms
